@@ -34,24 +34,25 @@ class App extends Component {
   render () {
     return (
       <form onSubmit={this.submitHandler}>
-        <label>Recipe Form</label><br></br>
+        <label>Recipe Form
         <TextField name='recipeName' 
                   defaultText='what do you call it?'
                   onChange={this.handleChange}
                   label='Recipe Name' >
-        </TextField><br></br>
+        </TextField><br/>
         <DropDown name='recipeStyle'
                   onChange={this.handleChange}
                   label='Recipe Style'
                   options={this.state.recipeStyleList}
                   value=''>
-        </DropDown><br></br>
+        </DropDown><br/>
         <YesNoButton name='isExtract'
                   onChange={this.handleChange}
                   label='Extract-Only?'
-                  childYes={ConditionalGuy({name:'Yes'})}
-                  childNo={ConditionalGuy({name:'No'})}>
-        </YesNoButton>
+                  yesItem='Extract Only'
+                  noItem='Whole Grain'>
+        </YesNoButton><br/>
+        </label><br/>
         <button type="submit" name='Submit'>SUBMIT TO ME MORTAL</button>
       </form>
     )
@@ -71,21 +72,18 @@ class YesNoButton extends Component {
       name:this.props.name,
       label:this.props.label,
       flag:true,
-      childYes:this.props.childYes,
-      childNo:this.props.childNo
+      yesItem:this.props.yesItem,
+      noItem:this.props.noItem
     }
     this.handleChange=this.props.onChange.bind(this);
   }
 
   render(){
-    if (this.state.flag) {
-      return this.state.childYes;
-    } else {
-      return this.state.childNo;
-    }
+
     return(
       <label>{this.state.label}
-      <p>{this.state.name} Not Yet Implemented</p>
+      <input type='radio' name='choice' value='yes' checked />{this.state.yesItem}
+      <input type='radio'  name='choice' value='no' />{this.state.noItem}
       </label>
     );
   }
